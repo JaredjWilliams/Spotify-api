@@ -13,4 +13,7 @@ public class UserRequestDto {
 
     @Embedded
     private ProfileDto profile;
+
+    @Embedded
+    private SettingsDto settings;
 }

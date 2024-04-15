@@ -19,8 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
-        User user = getUser(userRequestDto);
-        validationService.validateUser(user);
+        User user = getUserByUsername(userRequestDto.getCredentials().getUsername());
+        validationService.validateUserForCreation(user);
+        System.out.println(userRequestDto);
         return userMapper.entityToResponseDto(userRepository.saveAndFlush(userMapper.requestDtoToEntity(userRequestDto)));
     }
 
@@ -29,7 +30,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.entityToResponseDto(userRepository.findByCredentialsUsername(username));
     }
 
-    public User getUser(UserRequestDto userRequestDto) {
-        return userRepository.findByCredentialsUsername(userRequestDto.getCredentials().getUsername());
+    public User getUserByUsername(String username) {
+        return userRepository.findByCredentialsUsername(username);
     }
+
 }

@@ -24,6 +24,9 @@ public class User{
     @Embedded
     private Profile profile;
 
+    @Embedded
+    private Settings settings;
+
     @CreationTimestamp
     private Timestamp joined;
 

@@ -17,4 +17,7 @@ public class UserResponseDto {
 
     @NonNull
     private Timestamp joined;
+
+    @NonNull
+    private SettingsDto settings;
 }

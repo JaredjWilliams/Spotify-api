@@ -14,19 +14,19 @@ public class UserController {
 
     private final UserService userService;
 
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public UserResponseDto getUser() {
-//        return userService.getA;
-//    }
-
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponseDto createUser(@RequestBody UserRequestDto userRequestDto) {
         return userService.createUser(userRequestDto);
     }
 
-    
+    @GetMapping("/@{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponseDto getUser(@PathVariable("username") String username) {
+        return userService.getUser(username);
+    }
+
+
 
 
 }

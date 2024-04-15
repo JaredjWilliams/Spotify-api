@@ -5,4 +5,6 @@ import com.spotify.api.dtos.UserResponseDto;
 
 public interface UserService {
     UserResponseDto createUser(UserRequestDto userRequestDto);
+
+    UserResponseDto getUser(String username);
 }

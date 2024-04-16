@@ -27,7 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto getUser(String username) {
-        return userMapper.entityToResponseDto(userRepository.findByCredentialsUsername(username));
+        User user = getUserByUsername(username);
+        validationService.validateUser(user);
+        return userMapper.entityToResponseDto(user);
     }
 
     public User getUserByUsername(String username) {

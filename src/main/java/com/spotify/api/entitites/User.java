@@ -30,6 +30,9 @@ public class User{
     @CreationTimestamp
     private Timestamp joined;
 
+    @OneToMany(mappedBy = "user")
+    private List<Attempt> attempts;
+
     private Boolean deleted = false;
 
 

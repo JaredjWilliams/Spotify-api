@@ -20,12 +20,11 @@ public class UserController {
         return userService.createUser(userRequestDto);
     }
 
-    @GetMapping("/@{username}")
+    @GetMapping("/{username}")
     @ResponseStatus(HttpStatus.OK)
     public UserResponseDto getUser(@PathVariable("username") String username) {
         return userService.getUser(username);
     }
-
 
 
 

@@ -1,9 +1,6 @@
 package com.spotify.api.entitites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,6 +20,7 @@ public class Attempt {
     private Timestamp taken;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private User user;
 
     private Integer score;

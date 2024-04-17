@@ -39,12 +39,21 @@ public class Seeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        final int totalAttempts = 50;
+        final List<String> names = Arrays.asList(
+                "Amber", "Charles", "Hugh", "Jay", "Katie", "Lester", "Linda",
+                "Marjorie", "Rebekah", "Thomas", "Wanda", "William"
+        );
+        final int totalAttempts = 500;
         final int totalUsers = 15;
         User user0 = createUser("test", "tester", "testing@gmail.com", "Test");
         List<User> users = new ArrayList<>(List.of(user0));
         for (int i = 0; i < totalUsers; i++)
-            users.add(createUser("test"+i, "tester", "testing" + i + "@gmail.com", "Test"+i));
+            users.add(createUser(
+                    "test"+i,
+                    "tester",
+                    "testing" + i + "@gmail.com",
+                    names.get(random.nextInt(names.size())))
+            );
         users = userRepo.saveAllAndFlush(users);
 
         List<Integer> scoreOptions = new ArrayList<>(Arrays.asList(5, 10, 15));

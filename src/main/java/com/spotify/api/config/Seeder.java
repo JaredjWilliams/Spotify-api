@@ -16,7 +16,8 @@ public class Seeder implements CommandLineRunner {
     private final UserRepository userRepo;
     private final AttemptRepository attemptRepo;
     private static final Random random = new Random();
-
+    private static final List<String> classmates = List.of("Kenny", "Krit", "Jacob", "Diego", "Andres", "Ben", "Brice", "Dylan",
+            "Josiah", "Kevin", "Stanley", "Will", "Helena", "Katie", "Megan");
 
     private User createUser(String username, String password, String email, String fName) {
         final String difficulty = "Easy";
@@ -44,7 +45,7 @@ public class Seeder implements CommandLineRunner {
         User user0 = createUser("test", "tester", "testing@gmail.com", "Test");
         List<User> users = new ArrayList<>(List.of(user0));
         for (int i = 0; i < totalUsers; i++)
-            users.add(createUser("test"+i, "tester", "testing" + i + "@gmail.com", "Test"+i));
+            users.add(createUser(classmates.get(i), "tester", "testing" + i + "@gmail.com", classmates.get(i)));
         users = userRepo.saveAllAndFlush(users);
 
         List<Integer> scoreOptions = new ArrayList<>(Arrays.asList(5, 10, 15));

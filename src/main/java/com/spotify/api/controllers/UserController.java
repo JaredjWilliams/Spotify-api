@@ -1,12 +1,12 @@
 package com.spotify.api.controllers;
 
-import com.spotify.api.dtos.LeaderBoardRespDto;
 import com.spotify.api.dtos.UserRequestDto;
 import com.spotify.api.dtos.UserResponseDto;
 import com.spotify.api.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import com.spotify.api.dtos.LeaderBoardRespDto;
 
 import java.util.List;
 
@@ -31,9 +31,7 @@ public class UserController {
 
     @GetMapping("/leaderboard/{topN}")
     @ResponseStatus(HttpStatus.OK)
-    public List<LeaderBoardRespDto> getTopLeaderboard(
-            @PathVariable("topN") int topN
-    ) {
+    public List<LeaderBoardRespDto> getTopLeaderboard(@PathVariable("topN") int topN) {
         return userService.getTopLeaderboard(topN);
     }
 

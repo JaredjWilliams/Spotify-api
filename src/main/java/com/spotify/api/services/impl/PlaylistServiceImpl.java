@@ -12,6 +12,7 @@ import com.spotify.api.services.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,8 +31,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public PlaylistResponseDto getPlaylist(String id) {
-        return null;
+    public PlaylistResponseDto getPlaylist(String name) {
+        return playlistMapper.entityToDto(playlistRepository.findByName(name));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         validationService.validateUser(user);
         Playlist playlist = playlistMapper.dtoToEntity(playlistDto);
         playlist.setUser(user);
-        playlist.getSongs().forEach(song -> song.getPlaylist().add(playlist));
+        playlist.getSongs().forEach(song -> song.setPlaylist(List.of(playlist)));
 
         songRepository.saveAll(playlist.getSongs());
 

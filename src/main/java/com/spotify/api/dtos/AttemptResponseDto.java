@@ -9,4 +9,16 @@ import lombok.NonNull;
 public class AttemptResponseDto {
     @NonNull
     private Integer score;
+
+    @NonNull
+    private String albumName;
+
+    @NonNull
+    private String artistName;
+
+    @NonNull
+    private String albumCover;
+
+    @NonNull
+    private String taken;
 }

@@ -12,6 +12,8 @@ import com.spotify.api.services.AttemptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AttemptServiceImpl implements AttemptService {
@@ -20,6 +22,8 @@ public class AttemptServiceImpl implements AttemptService {
     private final AttemptRepository attemptRepository;
     private final UserServiceImpl userService;
     private final UserRepository userRepository;
+    private final ValidationServiceImpl validationService;
+
     @Override
     public AttemptResponseDto createAttempt(AttemptRequestDto attemptRequestDto) {
         final String username = attemptRequestDto.getCredentials().getUsername();
@@ -29,5 +33,15 @@ public class AttemptServiceImpl implements AttemptService {
         attempt.setUser(user);
 
         return attemptMapper.entityToResponseDto(attemptRepository.saveAndFlush(attempt));
+    }
+
+    @Override
+    public List<AttemptResponseDto> getAttemptsForUsername(String username) {
+        User user = userService.getUserByUsername(username);
+        validationService.validateUser(user);
+        validationService.validateUser(user);
+        List<Attempt> attempts = attemptRepository.findAllByUserOrderByTakenDesc(user);
+
+        return attemptMapper.entityListToResponseDtoList(attempts);
     }
 }

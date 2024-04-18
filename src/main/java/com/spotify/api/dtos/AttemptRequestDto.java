@@ -8,4 +8,7 @@ import lombok.NoArgsConstructor;
 public class AttemptRequestDto {
     private CredentialsDto credentials;
     private String score;
+    private String albumName;
+    private String artistName;
+    private String albumCover;
 }

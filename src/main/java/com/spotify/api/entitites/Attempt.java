@@ -25,4 +25,10 @@ public class Attempt {
 
     private Integer score;
 
+    private String albumName;
+
+    private String artistName;
+
+    private String albumCover;
+
 }

@@ -1,7 +1,6 @@
 package com.spotify.api.services.impl;
 
 import com.spotify.api.dtos.SettingsDto;
-import com.spotify.api.dtos.UserRequestDto;
 import com.spotify.api.entitites.User;
 import com.spotify.api.exceptions.BadRequestException;
 import com.spotify.api.exceptions.NotFoundException;

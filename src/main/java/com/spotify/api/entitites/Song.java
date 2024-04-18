@@ -28,6 +28,8 @@ public class Song {
 
     private String trackId;
 
+    private String previewUrl;
+
 
 
 

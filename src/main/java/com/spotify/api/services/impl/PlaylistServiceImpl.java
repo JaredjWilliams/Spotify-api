@@ -26,7 +26,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public List<PlaylistResponseDto> getPlaylists() {
-        return null;
+        return playlistMapper.entitiesToDtos(playlistRepository.findAll());
     }
 
     @Override

@@ -62,6 +62,9 @@ public class Seeder implements CommandLineRunner {
             Attempt attempt = new Attempt();
             attempt.setUser(users.get(random.nextInt(users.size())));
             attempt.setScore(scoreOptions.get(random.nextInt(scoreOptions.size())));
+            attempt.setAlbumCover("https://i.scdn.co/image/ab67616d00004851e6710ca8d1b1532efda0899e");
+            attempt.setAlbumName("Album Name");
+            attempt.setArtistName("Artist Name");
             attempts.add(attempt);
         }
         attemptRepo.saveAllAndFlush(attempts);

@@ -2,6 +2,7 @@ package com.spotify.api.services.impl;
 
 import com.spotify.api.dtos.AttemptRequestDto;
 import com.spotify.api.dtos.AttemptResponseDto;
+import com.spotify.api.dtos.CredentialsDto;
 import com.spotify.api.entitites.Attempt;
 import com.spotify.api.entitites.User;
 import com.spotify.api.exceptions.NotFoundException;
@@ -12,6 +13,8 @@ import com.spotify.api.services.AttemptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AttemptServiceImpl implements AttemptService {
@@ -20,6 +23,8 @@ public class AttemptServiceImpl implements AttemptService {
     private final AttemptRepository attemptRepository;
     private final UserServiceImpl userService;
     private final UserRepository userRepository;
+    private final ValidationServiceImpl validationService;
+
     @Override
     public AttemptResponseDto createAttempt(AttemptRequestDto attemptRequestDto) {
         final String username = attemptRequestDto.getCredentials().getUsername();
@@ -29,5 +34,14 @@ public class AttemptServiceImpl implements AttemptService {
         attempt.setUser(user);
 
         return attemptMapper.entityToResponseDto(attemptRepository.saveAndFlush(attempt));
+    }
+
+    @Override
+    public List<AttemptResponseDto> getAttemptsForUsername(CredentialsDto credentialsDto) {
+        User user = userService.getUserByUsername(credentialsDto.getUsername());
+        validationService.validateUser(user);
+        List<Attempt> attempts = attemptRepository.findAllByUser(user);
+
+        return attemptMapper.entityListToResponseDtoList(attempts);
     }
 }

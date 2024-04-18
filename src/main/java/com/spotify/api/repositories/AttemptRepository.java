@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AttemptRepository extends JpaRepository<Attempt, Long> {
 
-    List<Attempt> findAllByUser(User user);
+    List<Attempt> findAllByUserOrderByTakenDesc(User user);
 }

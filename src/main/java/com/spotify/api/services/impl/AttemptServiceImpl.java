@@ -2,7 +2,6 @@ package com.spotify.api.services.impl;
 
 import com.spotify.api.dtos.AttemptRequestDto;
 import com.spotify.api.dtos.AttemptResponseDto;
-import com.spotify.api.dtos.CredentialsDto;
 import com.spotify.api.entitites.Attempt;
 import com.spotify.api.entitites.User;
 import com.spotify.api.exceptions.NotFoundException;
@@ -37,10 +36,11 @@ public class AttemptServiceImpl implements AttemptService {
     }
 
     @Override
-    public List<AttemptResponseDto> getAttemptsForUsername(CredentialsDto credentialsDto) {
-        User user = userService.getUserByUsername(credentialsDto.getUsername());
+    public List<AttemptResponseDto> getAttemptsForUsername(String username) {
+        User user = userService.getUserByUsername(username);
         validationService.validateUser(user);
-        List<Attempt> attempts = attemptRepository.findAllByUser(user);
+        validationService.validateUser(user);
+        List<Attempt> attempts = attemptRepository.findAllByUserOrderByTakenDesc(user);
 
         return attemptMapper.entityListToResponseDtoList(attempts);
     }

@@ -23,9 +23,9 @@ public class AttemptController {
         return attemptService.createAttempt(attemptRequestDto);
     }
 
-    @GetMapping
+    @GetMapping("/{username}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AttemptResponseDto> getAttemptsForUsername(@RequestBody CredentialsDto credentialsDto) {
-        return attemptService.getAttemptsForUsername(credentialsDto);
+    public List<AttemptResponseDto> getAttemptsForUsername(@PathVariable("username") String username) {
+        return attemptService.getAttemptsForUsername(username);
     }
 }

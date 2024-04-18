@@ -46,7 +46,6 @@ public class PlaylistServiceImpl implements PlaylistService {
     public PlaylistResponseDto createPlaylist(PlaylistRequestDto playlistDto) {
         User user = userService.getUserByUsername(playlistDto.getCredentials().getUsername());
         validationService.validateUser(user);
-        System.out.println("User: " + user.getCredentials().getUsername());
         Playlist playlist = playlistMapper.dtoToEntity(playlistDto);
         playlist.setUser(user);
         playlist.setCreatedBy(user.getCredentials().getUsername());

@@ -20,9 +20,14 @@ public class PlaylistController {
     public List<PlaylistResponseDto> getPlaylists() {
         return playlistService.getPlaylists();
     }
+
+    @GetMapping("/user/{username}")
+    public List<PlaylistResponseDto> getPlaylistsForUser(@PathVariable("username") String username) {
+        return playlistService.getPlaylistsForUsername(username);
+    }
     
     @GetMapping("/{name}")
-    public PlaylistResponseDto getPlaylist(@PathVariable String name) {
+    public List<PlaylistResponseDto> getPlaylist(@PathVariable("name") String name) {
         return playlistService.getPlaylist(name);
     }
     

@@ -12,7 +12,6 @@ import com.spotify.api.services.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,16 +30,26 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public PlaylistResponseDto getPlaylist(String name) {
-        return playlistMapper.entityToDto(playlistRepository.findByName(name));
+    public List<PlaylistResponseDto> getPlaylistsForUsername(String username) {
+        User user = userService.getUserByUsername(username);
+        validationService.validateUser(user);
+
+        return playlistMapper.entitiesToDtos(playlistRepository.findAllByUser(user));
+    }
+
+    @Override
+    public List<PlaylistResponseDto> getPlaylist(String name) {
+        return playlistMapper.entitiesToDtos(playlistRepository.findAllByName(name));
     }
 
     @Override
     public PlaylistResponseDto createPlaylist(PlaylistRequestDto playlistDto) {
         User user = userService.getUserByUsername(playlistDto.getCredentials().getUsername());
         validationService.validateUser(user);
+        System.out.println("User: " + user.getCredentials().getUsername());
         Playlist playlist = playlistMapper.dtoToEntity(playlistDto);
         playlist.setUser(user);
+        playlist.setCreatedBy(user.getCredentials().getUsername());
         playlist.getSongs().forEach(song -> song.setPlaylist(List.of(playlist)));
 
         songRepository.saveAll(playlist.getSongs());
@@ -82,4 +91,6 @@ public class PlaylistServiceImpl implements PlaylistService {
     public SongDto updateTrack(String id, String trackId, SongDto songDto) {
         return null;
     }
+
+
 }

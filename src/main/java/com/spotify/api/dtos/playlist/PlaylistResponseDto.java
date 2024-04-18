@@ -13,4 +13,5 @@ public class PlaylistResponseDto {
     private Timestamp created;
     private List<SongDto> songs;
     private String name;
+    private String createdBy;
 }

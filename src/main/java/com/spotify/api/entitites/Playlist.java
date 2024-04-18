@@ -32,5 +32,6 @@ public class Playlist {
     private List<Song> songs;
 
     private String name;
+    private String createdBy;
 
 }

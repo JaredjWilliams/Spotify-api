@@ -9,7 +9,7 @@ import java.util.List;
 public interface PlaylistService {
     List<PlaylistResponseDto> getPlaylists();
 
-    PlaylistResponseDto getPlaylist(String id);
+    List<PlaylistResponseDto> getPlaylist(String id);
 
     PlaylistResponseDto createPlaylist(PlaylistRequestDto playlistDto);
 
@@ -27,4 +27,5 @@ public interface PlaylistService {
 
     SongDto updateTrack(String id, String trackId, SongDto songDto);
 
+    List<PlaylistResponseDto> getPlaylistsForUsername(String username);
 }
